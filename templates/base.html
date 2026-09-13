@@ -1,0 +1,5 @@
+{% load static %}
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{% block title %}SysMind Candidate Hub{% endblock %}</title><link rel="stylesheet" href="{% static 'app.css' %}"></head>
+<body><header><div class="brand">SYSMIND <span>Candidate Hub</span></div>{% if user.is_authenticated %}<nav><a href="{% url 'dashboard' %}">Requirements</a><a href="{% url 'new_requirement' %}">New Requirement</a><a href="{% url 'activity' %}">My Activity</a>{% if user.is_superuser or user.profile.is_manager %}<a href="{% url 'report' %}">Reports</a>{% endif %}{% if user.is_staff %}<a href="/admin/">Admin</a>{% endif %}<form method="post" action="{% url 'logout' %}" class="inline">{% csrf_token %}<button class="linkbtn">Sign out</button></form></nav>{% endif %}</header>
+<main>{% if messages %}{% for message in messages %}<div class="alert {{ message.tags }}">{{ message }}</div>{% endfor %}{% endif %}{% block content %}{% endblock %}</main>
+<footer>Internal recruiting system · API credentials are stored encrypted and never shown to recruiters.</footer></body></html>

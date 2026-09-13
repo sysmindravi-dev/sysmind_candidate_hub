@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block title %}Sign in{% endblock %}{% block content %}<div class="login-card"><h1>SysMind Candidate Hub</h1><p class="muted">Sign in with the account created by your administrator.</p><form method="post">{% csrf_token %}{{ form.as_p }}<button class="primary" type="submit">Sign in</button></form></div>{% endblock %}
