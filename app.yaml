@@ -1,0 +1,34 @@
+name: sysmind-candidate-hub
+region: nyc
+services:
+- name: web
+  dockerfile_path: Dockerfile
+  source_dir: /
+  http_port: 8080
+  instance_count: 1
+  instance_size_slug: apps-s-1vcpu-1gb
+  routes:
+  - path: /
+  health_check:
+    http_path: /accounts/login/
+  envs:
+  - key: DEBUG
+    value: "0"
+  - key: DJANGO_SECRET_KEY
+    type: SECRET
+  - key: APP_ENCRYPTION_KEY
+    type: SECRET
+  - key: DATABASE_URL
+    type: SECRET
+  - key: ALLOWED_HOSTS
+    value: .ondigitalocean.app
+  - key: CSRF_TRUSTED_ORIGINS
+    value: https://*.ondigitalocean.app
+# Add this worker only when AppSettings.signalhire_mode is set to async.
+# workers:
+# - name: worker
+#   dockerfile_path: Dockerfile
+#   source_dir: /
+#   run_command: python manage.py process_tasks
+#   instance_count: 1
+#   instance_size_slug: apps-s-1vcpu-0.5gb
