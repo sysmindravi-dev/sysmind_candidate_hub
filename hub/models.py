@@ -162,7 +162,7 @@ class AuditLog(models.Model):
 class BackgroundTask(models.Model):
     STATUS=[('PENDING','Pending'),('RUNNING','Running'),('DONE','Done'),('FAILED','Failed')]
     task_type=models.CharField(max_length=80)
-    payload=models.JSONField(default=dict)
+    payload=models.JSONField(default=dict, blank=True)
     status=models.CharField(max_length=20,choices=STATUS,default='PENDING',db_index=True)
     attempts=models.PositiveIntegerField(default=0)
     error=models.TextField(blank=True)
